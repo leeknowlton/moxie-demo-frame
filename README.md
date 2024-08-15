@@ -2,8 +2,6 @@
 
 > Let a thousand Moxie frames bloom.
 
-![CleanShot 2024-08-15 at 09 09 09@2x](https://github.com/user-attachments/assets/1140f39f-2c55-417c-a0d8-bc312f58a64f)
-
 This project is a Farcaster Frame built using [frames.js](https://framesjs.org/) the [Airstack](https://airstack.xyz) validator and node package.
 
 ## Features
