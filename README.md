@@ -2,6 +2,8 @@
 
 > Let a thousand Moxie frames bloom.
 
+![CleanShot 2024-08-15 at 09 09 09@2x](https://github.com/user-attachments/assets/1140f39f-2c55-417c-a0d8-bc312f58a64f)
+
 This project is a Farcaster Frame built using [frames.js](https://framesjs.org/) the [Airstack](https://airstack.xyz) validator and node package.
 
 ## Features
@@ -47,11 +49,13 @@ This will start both the Next.js development server and the frames.js debugger.
    - `AIRSTACK_API_KEY`: Your Airstack API key
 4. Deploy the project.
 
-**Important:** Make sure to use the short Vercel URL in your `APP_URL` environment variable to ensure proper functionality.
+**Important:** Make sure to use the short Vercel URL in your `APP_URL` environment variable. Redeploy if needed.
 
 ## Airstack Validator
 
 This project includes the Airstack validator, which you need to earn Moxie rewards when users interact with your Farcaster Frame.
+
+##
 
 ## API Routes
 
@@ -65,6 +69,12 @@ These routes are used internally by the Frame to display user information and ea
 ## Cast Action
 
 The project includes a Cast Action install button. Make sure to customize the link with your own frame url. The Cast Action is defined in the `/api/cast-action/route.tsx` file.
+
+## Warpcast Validation
+
+![CleanShot 2024-08-15 at 09 10 58@2x](https://github.com/user-attachments/assets/46bff4fd-4a1e-47a4-81a8-8f936c238975)
+
+Check your frame at https://warpcast.com/~/developers/frames . Be sure to use the short url that vercel gives you (Warpcast doesn't like long urls), and add /frames to the end (as in the screenshot above).
 
 ## Contributing
 
