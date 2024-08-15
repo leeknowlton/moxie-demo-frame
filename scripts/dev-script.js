@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { spawn } from "node:child_process";
 import isPortReachable from "is-port-reachable";
 
@@ -27,7 +26,15 @@ if (!process.env.FJS_MONOREPO) {
   args = [
     "--kill-others",
     `"next dev -p ${nextPort}"`,
-    `"frames --port ${debuggerPort} --url ${url} ${process.env.FARCASTER_DEVELOPER_FID ? `--fid '${process.env.FARCASTER_DEVELOPER_FID}'` : ""} ${process.env.FARCASTER_DEVELOPER_MNEMONIC ? `--fdm '${process.env.FARCASTER_DEVELOPER_MNEMONIC}'` : ""} "`,
+    `"frames --port ${debuggerPort} --url ${url} ${
+      process.env.FARCASTER_DEVELOPER_FID
+        ? `--fid '${process.env.FARCASTER_DEVELOPER_FID}'`
+        : ""
+    } ${
+      process.env.FARCASTER_DEVELOPER_MNEMONIC
+        ? `--fdm '${process.env.FARCASTER_DEVELOPER_MNEMONIC}'`
+        : ""
+    } "`,
   ];
 }
 
