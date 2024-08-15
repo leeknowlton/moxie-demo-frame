@@ -268,7 +268,7 @@ const frameHandler = frames(async (ctx) => {
       <Button
         action="link"
         // Change the url here
-        target="https://warpcast.com/~/add-cast-action?url=https%3A%2F%moxiedemo.vercel.app%2Fapi%2Fcast-action"
+        target="https://warpcast.com/~/add-cast-action?url=https%3A%2F%2Fmoxiedemo.vercel.app%2Fapi%2Fcast-action"
       >
         Cast Action
       </Button>,
