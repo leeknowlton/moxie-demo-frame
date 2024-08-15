@@ -1,16 +1,15 @@
-Based on the provided codebase, here's an updated README with additional information and instructions:
-
 # Moxie Airstack Demo Frame
 
-This project is a Farcaster Frame built using [frames.js](https://framesjs.org/), demonstrating integration with Airstack for validator rewards and Moxie earnings data.
+> Let a thousand Moxie frames bloom.
+
+This project is a Farcaster Frame built using [frames.js](https://framesjs.org/) the [Airstack](https://airstack.xyz) validator and node package.
 
 ## Features
 
-- Built with frames.js for easy Frame development
+- Frames.js with TailwindCSS for styling
 - Airstack API integration for Far Score and Moxie earnings data
-- TailwindCSS for styling
 - Cast Action Install
-- Airstack validator integration for Moxie rewards
+- Airstack validator integration for Moxie everyday rewards
 - Ready for deployment on Vercel
 
 ## Setup
@@ -25,7 +24,6 @@ npm install
 3. Create a `.env` file in the root directory with the following content:
 
 ```env
-APP_URL="https://your-vercel-url.vercel.app"
 AIRSTACK_API_KEY=your_airstack_api_key_here
 ```
 
@@ -39,14 +37,13 @@ To run the project locally:
 npm run dev
 ```
 
-This will start both the Next.js development server and the frames.js debugger. Follow the [debugging guide](https://framesjs.org/guides/debugging) to preview and debug your Frame.
+This will start both the Next.js development server and the frames.js debugger.
 
 ## Deployment to Vercel
 
 1. Push your code to a GitHub repository.
 2. Connect your repository to Vercel.
 3. In the Vercel deployment settings, add the following environment variables:
-   - `APP_URL`: Set this to your Vercel deployment URL (e.g., `https://your-project.vercel.app`)
    - `AIRSTACK_API_KEY`: Your Airstack API key
 4. Deploy the project.
 
@@ -54,7 +51,7 @@ This will start both the Next.js development server and the frames.js debugger. 
 
 ## Airstack Validator
 
-This project includes the Airstack validator, which is crucial for earning Moxie rewards when users interact with your Farcaster Frame. The validator is automatically integrated into the Frame's functionality.
+This project includes the Airstack validator, which you need to earn Moxie rewards when users interact with your Farcaster Frame.
 
 ## API Routes
 
@@ -67,7 +64,7 @@ These routes are used internally by the Frame to display user information and ea
 
 ## Cast Action
 
-The project includes a Cast Action feature, which allows users to easily install and use the Frame from their Farcaster client. The Cast Action is defined in the `/api/cast-action/route.tsx` file.
+The project includes a Cast Action install button. Make sure to customize the link with your own frame url. The Cast Action is defined in the `/api/cast-action/route.tsx` file.
 
 ## Contributing
 
