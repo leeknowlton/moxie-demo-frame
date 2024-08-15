@@ -1,22 +1,37 @@
 import { fetchMetadata } from "frames.js/next";
-import { Metadata } from "next";
+import { appURL } from "./utils";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { userfid?: string };
+}) {
+  const framesUrl = new URL("/frames", appURL());
+
+  if (searchParams.userfid) {
+    framesUrl.searchParams.set("userfid", searchParams.userfid);
+    framesUrl.searchParams.set("action", "fetch");
+  }
+
+  console.log("Fetching metadata from:", framesUrl.toString());
+
+  const castActionUrl = new URL("/api/cast-action", appURL());
+
   return {
-    title: "Moxie Stats Frame Example",
+    title: "Moxie Stats Frame Demo",
+    description: "use this as a building block for frames.",
+    openGraph: {
+      title: "MoxieDemo",
+      description: "use this as a building block for frames.",
+      images: [`${framesUrl.origin}/api/og`],
+    },
     other: {
-      ...(await fetchMetadata(
-        new URL(
-          "/frames",
-          process.env.VERCEL_URL
-            ? `https://${process.env.VERCEL_URL}`
-            : "http://localhost:3000"
-        )
-      )),
+      ...(await fetchMetadata(framesUrl)),
+      "fc:frame:cast_action:url": castActionUrl.toString(),
     },
   };
 }
 
-export default async function Home() {
-  return <div>Moxie Stats Frame Example</div>;
+export default function Page() {
+  return <span>Loading Moxie Demo...</span>;
 }
