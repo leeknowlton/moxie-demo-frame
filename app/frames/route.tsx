@@ -249,12 +249,12 @@ const frameHandler = frames(async (ctx) => {
           (userData as UserData).socialCapitalScore
         } with a rank of ${
           (userData as UserData).socialCapitalRank
-        }! The higher the score, the more my reactions help you earn Moxie. Check out your score on MoxieRank, made by Zenigame (@zeni.eth)`
-      : "Check out your Moxie Demo Frame score!"
+        }! The higher the score, the more my reactions help you earn Moxie. Check out your score on moxiedemo, made by Zenigame (@zeni.eth)`
+      : "Check out your Moxie Far Score!"
   );
 
   // Change the url here
-  const shareUrl = `https://warpcast.com/~/compose?text=${shareText}&embeds[]=https://moxierank.vercel.app/frames${
+  const shareUrl = `https://warpcast.com/~/compose?text=${shareText}&embeds[]=https://moxiedemo.vercel.app/frames${
     fid ? `?userfid=${fid}` : ""
   }`;
 
@@ -268,9 +268,9 @@ const frameHandler = frames(async (ctx) => {
       <Button
         action="link"
         // Change the url here
-        target="https://warpcast.com/~/add-cast-action?url=https%3A%2F%2Fmoxierank.vercel.app%2Fapi%2Fcast-action"
+        target="https://warpcast.com/~/add-cast-action?url=https%3A%2F%moxiedemo.vercel.app%2Fapi%2Fcast-action"
       >
-        Install Cast Action
+        Cast Action
       </Button>,
       <Button
         action="link"
