@@ -16,11 +16,6 @@ query MyQuery($entityId: String!, $timeframe: FarcasterMoxieEarningStatsTimefram
   ) {
     FarcasterMoxieEarningStat {
       allEarningsAmount
-      frameDevEarningsAmount
-      entityId
-      entityType
-      castEarningsAmount
-      otherEarningsAmount
     }
   }
 }
@@ -42,33 +37,114 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    interface MoxieEarningStat {
+      allEarningsAmount: number;
+    }
+
+    let todayEarnings: MoxieEarningStat | null = null;
+    let weeklyEarnings: MoxieEarningStat | null = null;
+    let lifetimeEarnings: MoxieEarningStat | null = null;
+
     console.log(
-      `Fetching Moxie earnings data from Airstack for entityId: ${entityId}`
+      `Fetching Today's Moxie earnings data from Airstack for entityId: ${entityId}`
     );
-    const [todayData, weeklyData, lifetimeData] = await Promise.all([
+
+    const [todayData] = await Promise.all([
       fetchQuery(moxieQuery, { entityId, timeframe: "TODAY" }),
-      fetchQuery(moxieQuery, { entityId, timeframe: "WEEKLY" }),
-      fetchQuery(moxieQuery, { entityId, timeframe: "LIFETIME" }),
     ]);
 
-    if (todayData.error || weeklyData.error || lifetimeData.error) {
-      console.error(
-        "Airstack API error:",
-        todayData.error || weeklyData.error || lifetimeData.error
-      );
+    if (todayData.error) {
+      console.error("Airstack API error (today's Moxie earnings data):", todayData.error);
       return NextResponse.json(
-        { error: "Error fetching Moxie earnings data" },
+        { error: todayData.error.message },
         { status: 500 }
       );
+    } else {
+      
+      if (!(todayData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat == null) && todayData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat && todayData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat.length > 0) {
+        todayEarnings = todayData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat[0];
+      } else {
+        todayEarnings = {
+          allEarningsAmount: 0,
+        };
+      }
     }
 
     console.log(
-      "Airstack API response (Moxie earnings data):",
+      "Airstack API response (Today's Moxie earnings data):",
       JSON.stringify(
         {
-          today: todayData.data,
-          weekly: weeklyData.data,
-          lifetime: lifetimeData.data,
+          today: todayEarnings,
+        },
+        null,
+        2
+      )
+    );
+
+    console.log(
+      `Fetching Weekly Moxie earnings data from Airstack for entityId: ${entityId}`
+    );
+    const [weeklyData] = await Promise.all([
+      fetchQuery(moxieQuery, { entityId, timeframe: "WEEKLY" }),
+    ]);
+
+    if (weeklyData.error) {
+      console.error("Airstack API error (weekly Moxie earnings data):", weeklyData.error);
+      return NextResponse.json(
+        { error: weeklyData.error.message },
+        { status: 500 }
+      );
+    } else {
+      if (!(weeklyData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat == null) && weeklyData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat && weeklyData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat.length > 0) {
+        weeklyEarnings = weeklyData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat[0];
+      } else {
+        weeklyEarnings = {
+          allEarningsAmount: 0,
+        };
+      }
+      
+    }
+
+    console.log(
+      "Airstack API response (Weekly Moxie earnings data):",
+      JSON.stringify(
+        {
+          weekly: weeklyEarnings,
+        },
+        null,
+        2
+      )
+    );
+
+    console.log(
+      `Fetching Lifetime Moxie earnings data from Airstack for entityId: ${entityId}`
+    );
+    const [lifetimeData] = await Promise.all([
+      fetchQuery(moxieQuery, { entityId, timeframe: "LIFETIME" }),
+    ]);
+
+    if (lifetimeData.error) {
+      console.error("Airstack API error (lifetime Moxie earnings data):", lifetimeData.error);
+      return NextResponse.json(
+        { error: lifetimeData.error.message },
+        { status: 500 }
+      );
+    } else {
+      if (!(lifetimeData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat == null) && lifetimeData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat && lifetimeData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat.length > 0) {
+        lifetimeEarnings = lifetimeData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat[0];
+      } else {
+        lifetimeEarnings = {
+          allEarningsAmount: 0,
+        };
+      }
+      
+    }
+
+    console.log(
+      "Airstack API response (Lifetime Moxie earnings data):",
+      JSON.stringify(
+        {
+          lifetime: lifetimeEarnings,
         },
         null,
         2
@@ -77,12 +153,11 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       today:
-        todayData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat[0],
+        todayEarnings,
       weekly:
-        weeklyData.data.FarcasterMoxieEarningStats.FarcasterMoxieEarningStat[0],
+        weeklyEarnings,
       lifetime:
-        lifetimeData.data.FarcasterMoxieEarningStats
-          .FarcasterMoxieEarningStat[0],
+        lifetimeEarnings,
     });
   } catch (error) {
     console.error("Unexpected error:", error);
