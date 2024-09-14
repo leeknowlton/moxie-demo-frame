@@ -17,7 +17,6 @@ query GetUserSocialCapital($userId: String!) {
     Social {
       profileName
       profileDisplayName
-      isFarcasterPowerUser
       userId
       profileBio
       profileImage

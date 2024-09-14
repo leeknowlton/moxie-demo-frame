@@ -20,7 +20,6 @@ const frameHandler = frames(async (ctx) => {
     socialCapitalScore: string;
     socialCapitalRank: string;
     profileDisplayName: string;
-    isPowerUser: boolean;
     profileImageUrl: string;
   }
 
@@ -57,7 +56,6 @@ const frameHandler = frames(async (ctx) => {
           socialCapitalScore:
             social.socialCapital?.socialCapitalScore?.toFixed(2) || "N/A",
           socialCapitalRank: social.socialCapital?.socialCapitalRank || "N/A",
-          isPowerUser: social.isFarcasterPowerUser || false,
           profileImageUrl:
             social.profileImageContentValue?.image?.extraSmall ||
             social.profileImage ||
@@ -197,13 +195,13 @@ const frameHandler = frames(async (ctx) => {
             <div tw="flex flex-col items-center justify-center rounded-lg border-2 mb-4 py-2 bg-pink-50 bg-opacity-90">
               <span tw="text-2xl">Reply</span>
               <div tw="flex text-4xl">
-                {(Number(userData?.socialCapitalScore) * 5).toFixed(2)}
+                {(Number(userData?.socialCapitalScore) * 3).toFixed(2)}
               </div>
             </div>
             <div tw="flex flex-col items-center justify-center rounded-lg border-2 py-2 bg-pink-50 bg-opacity-90">
               <span tw="text-2xl">Recast/Quote</span>
               <div tw="flex text-4xl">
-                {(Number(userData?.socialCapitalScore) * 10).toFixed(2)}
+                {(Number(userData?.socialCapitalScore) * 6).toFixed(2)}
               </div>
             </div>
           </div>
